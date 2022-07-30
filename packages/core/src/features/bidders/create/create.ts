@@ -1,3 +1,4 @@
+import { addBiddersBalance, getBiddersBalance, getBiddersName } from "..";
 import { Implementation } from "../../../implementation";
 import { createNewBidderEvent, Event, EventTypes } from "../events";
 
@@ -11,18 +12,34 @@ export interface Bidder {
   addEvent: (event: Event) => Promise<void>;
 }
 
-export const createBidder = <T,> ({ createEventArray, addEvent, getEvents, getEventsOfType }: Implementation<T>) => async ({ name }: BidderProps): Promise<Bidder> => {
+export const createBidder = <T,> (funcs: Implementation<T>) => async ({ name }: BidderProps) => {
 
   // state could be literally anything
   // normally it would be a userId
   // or it could be the array of events
-  const state = await createEventArray([
+  const state = await funcs.createEventArray([
     createNewBidderEvent({ name })
   ]);
 
+  // these are the implementation details
+  const getEvents = funcs.getEvents(state)
+  const addEvent = funcs.addEvent(state)
+  const getEventsOfType = funcs.getEventsOfType(state)
+
+  const bidder = {
+    getEvents,
+    addEvent,
+    getEventsOfType
+  }
+
+  // this is the core logic
+  const getName = getBiddersName(bidder)
+  const getBalance = getBiddersBalance(bidder)
+  const addBalance = addBiddersBalance(bidder)
+
   return {
-    getEvents: getEvents(state),
-    addEvent: addEvent(state),
-    getEventsOfType: getEventsOfType(state)
+    getName,
+    getBalance,
+    addBalance
   }
 }

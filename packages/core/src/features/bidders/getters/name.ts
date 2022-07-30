@@ -1,6 +1,6 @@
 import { Bidder } from "../create";
 
-export const getName = async (bidder: Bidder): Promise<string> => {
+export const getName = (bidder: Bidder) => async (): Promise<string> => {
 
   const events = await bidder.getEventsOfType("newBidder");
 
@@ -14,6 +14,6 @@ export const getName = async (bidder: Bidder): Promise<string> => {
   if (name === "") {
     throw new Error("Bidder has no name");
   }
-  
+
   return name;
 }

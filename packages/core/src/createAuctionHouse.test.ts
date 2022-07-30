@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { addBalance, createAuctionHouse, getBiddersName, getBiddersBalance } from '.';
+import { createAuctionHouse } from '.';
 import type { BidderEvent } from ".";
 import { v4 as uuid } from "uuid";
 import { defaultImplementation } from "./implementation/default"
@@ -9,7 +9,7 @@ it("create a new auction house", async () => {
 
   const bidder = await auctionHouse.bidders.create({ name: "John" });
 
-  const name = await getBiddersName(bidder);
+  const name = await bidder.getName();
 
   expect(name).toEqual("John");
 })
@@ -60,14 +60,14 @@ it("use a custom implementation", async () => {
   const bidder = await auctionHouse.bidders.create({ name: "John" });
   const bidder2 = await auctionHouse.bidders.create({ name: "Josh" });
 
-  const name = await getBiddersName(bidder);
+  const name = await bidder.getName();
 
   expect(name).toEqual("John");
 
-  await addBalance(bidder2, 50);
-  await addBalance(bidder2, 100);
+  await bidder2.addBalance(100);
+  await bidder2.addBalance(50);
 
-  const balance = await getBiddersBalance(bidder2);
+  const balance = await bidder2.getBalance();
 
   expect(balance).toEqual(150);
 })

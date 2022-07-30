@@ -1,6 +1,6 @@
 import { Bidder } from "../create";
 
-export const getBalance = async (bidder: Bidder): Promise<number> => {
+export const getBalance = (bidder: Bidder) => async (): Promise<number> => {
 
   const events = await bidder.getEventsOfType("addBalance");
 

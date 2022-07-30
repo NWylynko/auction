@@ -1,5 +1,6 @@
 import "source-map-support/register";
 
 export { createAuctionHouse } from "./createAuctionHouse"
-export { getBiddersName, getBiddersBalance, addBalance } from "./features/bidders";
+export { defaultImplementation } from './implementation/default';
+
 export type { Bidder, BidderEvents, BidderEvent, BidderEventTypes } from "./features/bidders";

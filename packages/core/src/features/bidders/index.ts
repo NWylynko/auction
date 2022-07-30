@@ -9,4 +9,4 @@ export type {
 export { createBidder } from "./create/create";
 export { getName as getBiddersName } from "./getters/name";
 export { getBalance as getBiddersBalance } from "./getters/balance";
-export { addBalance } from './addBalance/addBalance';
+export { addBalance as addBiddersBalance } from './addBalance/addBalance';
