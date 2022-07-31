@@ -17,7 +17,7 @@ export const createBidder = <T,> (funcs: Implementation<T>) => async ({ name }: 
   // state could be literally anything
   // normally it would be a userId
   // or it could be the array of events
-  const state = await funcs.createEventArray([
+  const state = await funcs.createEventStream([
     createNewBidderEvent({ name })
   ]);
 
@@ -29,7 +29,7 @@ export const createBidder = <T,> (funcs: Implementation<T>) => async ({ name }: 
   const bidder = {
     getEvents,
     addEvent,
-    getEventsOfType
+    getEventsOfType,
   }
 
   // this is the core logic

@@ -26,7 +26,7 @@ it("use a custom implementation", async () => {
   const events: CustomBidderEvent[] = [];
 
   const auctionHouse = createAuctionHouse({
-    createEventArray: async (initialEvents) => {
+    createEventStream: async (initialEvents) => {
 
       const userId = uuid();
 
