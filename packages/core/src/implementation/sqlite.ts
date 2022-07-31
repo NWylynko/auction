@@ -37,8 +37,7 @@ export const sqliteConnector = (database: Database) => {
   }
 
   const parseRows = (rows: any[]) => rows.map(row => {
-    const { type, payload, timestamp } = row
-    return { type, payload: JSON.parse(payload), timestamp }
+    return { ...row, payload: JSON.parse(row.payload) }
   });
 
   const getEvents = (userId: string) => async () => {
@@ -60,6 +59,7 @@ export const sqliteConnector = (database: Database) => {
   // pass in a string here to hold the users ID
   const connector: Implementation<string> = {
     createEventStream,
+    findEventStream: async s => s,
     addEvent,
     getEvents,
     getEventsOfType

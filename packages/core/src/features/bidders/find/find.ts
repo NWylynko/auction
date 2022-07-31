@@ -3,7 +3,7 @@ import { Implementation } from "../../../implementation";
 import { createNewBidderEvent, Event, EventTypes } from "../events";
 
 export interface BidderProps {
-  name: string;
+  userId: string;
 }
 
 export interface Bidder {
@@ -12,14 +12,12 @@ export interface Bidder {
   addEvent: (event: Event) => Promise<void>;
 }
 
-export const createBidder = <T,> (funcs: Implementation<T>) => async ({ name }: BidderProps) => {
+export const findBidder = <T,> (funcs: Implementation<T>) => async (identifier: T) => {
 
   // state could be literally anything
   // normally it would be a userId
   // or it could be the array of events
-  const state = await funcs.createEventStream([
-    createNewBidderEvent({ name })
-  ]);
+  const state = await funcs.findEventStream(identifier);
 
   // these are the implementation details
   const getEvents = funcs.getEvents(state)

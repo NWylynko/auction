@@ -18,6 +18,7 @@ import type { BidderEvent, BidderEvents, BidderEventTypes } from "../";
 //      many different implementations.
 export type Implementation<T> = {
   createEventStream: (initialEvents: BidderEvents) => Promise<T>;
+  findEventStream: (state: T) => Promise<T>;
   getEvents: (state: T) => () => Promise<BidderEvents>;
   getEventsOfType: (state: T) => (type: BidderEventTypes) => Promise<BidderEvents>;
   addEvent: (state: T) => (event: BidderEvent) => Promise<void>;

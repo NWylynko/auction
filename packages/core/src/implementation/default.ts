@@ -11,7 +11,8 @@ import type { Event, Events, EventTypes } from "../features/bidders/events";
 // this then needs to do whatever side effects are needed
 // and return the response that is expected by the core logic
 export const defaultImplementation: Implementation<Events> = {
-  createEventStream: async (initialEvents: Events): Promise<Events> => [...initialEvents],
+  createEventStream: async (initialEvents: Events): Promise<Events> => initialEvents,
+  findEventStream: async (state: Events): Promise<Events> => state,
   addEvent: (events: Events) => async (event: Event): Promise<void> => { events.push(event) },
   getEvents: (events: Events) => async (): Promise<Events> => events,
   getEventsOfType: (events: Events) => async (type: EventTypes): Promise<Events> => events.filter(event => event.type === type) ?? [],
