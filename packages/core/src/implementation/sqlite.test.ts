@@ -7,7 +7,7 @@ import { createAuctionHouse } from '..';
 it("sqlite implementation", async () => {
 
   const database = await open({
-    filename: './test.db',
+    filename: ':memory:',
     driver: sqlite3.Database
   })
 
